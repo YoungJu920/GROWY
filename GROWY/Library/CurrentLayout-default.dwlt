@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 4}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -75,7 +75,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 130
+  controlID: 17
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -98,7 +98,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 997
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &5
 MonoBehaviour:
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 709, y: 492}
   m_MaxSize: {x: 18004, y: 14042}
   vertical: 0
-  controlID: 129
+  controlID: 16
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 55
+  controlID: 85
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -296,7 +296,7 @@ MonoBehaviour:
   m_MinSize: {x: 276, y: 192}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 102
+  controlID: 132
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -545,7 +545,7 @@ MonoBehaviour:
   m_Position:
     m_Target: {x: 0, y: 0, z: 0}
     speed: 2
-    m_Value: {x: 1040.515, y: -692.3561, z: 94.75}
+    m_Value: {x: 0, y: 0, z: 0}
   m_RenderMode: 3
   m_CameraMode:
     drawMode: 3
@@ -593,11 +593,11 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
   m_Size:
     m_Target: 10
     speed: 2
-    m_Value: 628.8261
+    m_Value: 10
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -720,7 +720,7 @@ MonoBehaviour:
   m_StartGridSize: 32
   m_LastFolders: []
   m_LastFoldersGridSize: 66
-  m_LastProjectPath: C:\Users\User\Desktop\GROWY\GROWY
+  m_LastProjectPath: C:\Users\User\Desktop\GROWY\GROWY\GROWY
   m_LockTracker:
     m_IsLocked: 1
   m_FolderTreeState:
@@ -755,7 +755,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: ffffffff3a3c0000
+    m_ExpandedIDs: ffffffff303c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
