@@ -252,6 +252,12 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="I18N">
+ <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Assets/Plugins/I18N.dll</HintPath>
+ </Reference>
+ <Reference Include="I18N.CJK">
+ <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Assets/Plugins/I18N.CJK.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
@@ -642,11 +648,14 @@
  <Reference Include="UnityEditor.UI">
  <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
+ <Reference Include="Unity.2D.Sprite.Editor">
+ <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{4E3F85A4-AD9D-5EB1-A07A-A3652F88F429}</Project>
-      <Name>Assembly-CSharp</Name>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{C0030619-1274-D823-48FB-72AD59B9B95F}</Project>
+      <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
     <ProjectReference Include="SuperTiled2UnityEditor.csproj">
       <Project>{CBC79FC2-393D-237F-DB21-76EEEFAF0585}</Project>

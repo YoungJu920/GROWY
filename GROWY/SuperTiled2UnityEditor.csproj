@@ -369,6 +369,12 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="I18N">
+ <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Assets/Plugins/I18N.dll</HintPath>
+ </Reference>
+ <Reference Include="I18N.CJK">
+ <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Assets/Plugins/I18N.CJK.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>C:/Users/User/Desktop/GROWY/GROWY/GROWY/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>
