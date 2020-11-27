@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Floor
+  - Wall
+  - Fountain
+  - Chest
+  - Exit
+  - Wall2
+  - character
+  - Monster
   layers:
   - Default
   - TransparentFX
@@ -13,8 +21,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - NoPassing
+  - Item
   - 
   - 
   - 
@@ -40,4 +48,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: background
+    uniqueID: 2089211667
+    locked: 0
+  - name: object
+    uniqueID: 3197456637
+    locked: 0
+  - name: character
+    uniqueID: 1767073873
+    locked: 0
+  - name: above object
+    uniqueID: 2234401915
+    locked: 0
+  - name: effect
+    uniqueID: 2772167899
+    locked: 0
+  - name: UI
+    uniqueID: 1955908659
     locked: 0
