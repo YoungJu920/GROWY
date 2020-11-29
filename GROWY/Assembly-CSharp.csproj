@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\Defines\DefsScene.cs" />
      <Compile Include="Assets\Scripts\Pattern\DontDestroy.cs" />
      <Compile Include="Assets\Scripts\Pattern\Singleton.cs" />
      <Compile Include="Assets\Scripts\UI\PopupManager.cs" />

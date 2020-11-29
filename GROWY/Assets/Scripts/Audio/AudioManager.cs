@@ -46,7 +46,7 @@ public class AudioManager : Singleton<AudioManager>
 {
     [SerializeField] public Sound[] skillSounds;    // 스킬 사운드
     [SerializeField] public Sound[] menuSounds;     // 일반 사운드
-    [SerializeField] public AudioClip[] bgms;       // BGM
+    [SerializeField] public Sound[] bgms;       // BGM
 
     public AudioSource audioSource;
 
@@ -94,10 +94,9 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void PlayBGM(int trackNum)
+    public void PlayBGM(SceneType sceneType)
     {
-        //audioSource.volume = 1f;
-        audioSource.clip = bgms[trackNum];
+        audioSource.clip = bgms[(int)sceneType].clip;
         audioSource.Play();
     }
 
@@ -150,16 +149,16 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void StopAndPlayBGM(int trackNum)        // 이전 BGM을 FadeOut시키고 새 BGM을 FadeIn
+    public void StopAndPlayBGM(SceneType sceneType)        // 이전 BGM을 FadeOut시키고 새 BGM을 FadeIn
     {
-        StartCoroutine(StopAndPlayBGMCoroutine(trackNum));
+        StartCoroutine(StopAndPlayBGMCoroutine(sceneType));
     }
 
-    IEnumerator StopAndPlayBGMCoroutine(int trackNum)
+    IEnumerator StopAndPlayBGMCoroutine(SceneType sceneType)
     {
         yield return StartCoroutine(FadeOutBGMCoroutine());
 
-        PlayBGM(trackNum);
+        PlayBGM(sceneType);
 
         FadeInBGM();
     }
