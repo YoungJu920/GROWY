@@ -13,13 +13,15 @@ public class PopupManager : Singleton<PopupManager>
     public GameObject PopupOneBtn;
     public GameObject PopupTwoBtn;
 
+    private GameObject window;
+
     public void CreatePopupOneBtn(string text, Action method = null, float scale = 1.0f)
     {
-        AudioManager.Instance.PlayMenuSound("popup0");
+        AudioManager.Instance.PlayMenuSound(PopupType.COMMON_POPUP.ToString());
 
         // 팝업창 생성
-        GameObject window = Instantiate(PopupOneBtn);
-        window.transform.SetParent(GameObject.Find("baseCanvas").transform, false);
+        window = Instantiate(PopupOneBtn);
+        window.transform.SetParent(canvasTR, false);
         window.transform.localScale = new Vector3(scale, scale, 1.0f);
 
         // 텍스트 길이에 따라 팝업창 사이즈 조정
@@ -39,23 +41,17 @@ public class PopupManager : Singleton<PopupManager>
 
         // 버튼 OnClick
         Button OkBtn = window.transform.Find("OK_Btn").GetComponent<Button>();
-        OkBtn.onClick.AddListener(() => {
-            AudioManager.Instance.PlayMenuSound("click0");
-            if (method != null)
-                method();
-            Destroy(window);
-        });
+        Utility.AddListener(OkBtn, ButtonType.COMMON_BTN, method + DestroyWindow);
     }
 
     public void CreatePopupTwoBtn(string text, Action method = null, float scale = 1.0f)
     {
-        AudioManager.Instance.PlayMenuSound("popup0");
+        AudioManager.Instance.PlayMenuSound(PopupType.COMMON_POPUP.ToString());
 
         // 팝업창 생성
-        GameObject window = Instantiate(PopupTwoBtn);
-        window.transform.SetParent(GameObject.Find("popupCanvas").transform, false);
+        window = Instantiate(PopupTwoBtn);
+        window.transform.SetParent(canvasTR, false);
         window.transform.localScale = new Vector3(scale, scale, 1.0f);
-
 
         // 텍스트 길이에 따라 팝업창 사이즈 조정
         RectTransform rt = window.GetComponent<RectTransform>();
@@ -74,17 +70,15 @@ public class PopupManager : Singleton<PopupManager>
 
         // 버튼 OnClick
         Button OkBtn = window.transform.Find("OK_Btn").GetComponent<Button>();
-        OkBtn.onClick.AddListener(() => {
-            AudioManager.Instance.PlayMenuSound("click0");
-            if (method != null)
-                method();
-            Destroy(window);
-        });
+        Utility.AddListener(OkBtn, ButtonType.COMMON_BTN, method + DestroyWindow);
 
         Button CancleBtn = window.transform.Find("Cancle_Btn").GetComponent<Button>();
-        CancleBtn.onClick.AddListener(() => {
-            AudioManager.Instance.PlayMenuSound("click0");
+        Utility.AddListener(CancleBtn, ButtonType.COMMON_BTN, method + DestroyWindow);
+    }
+
+    void DestroyWindow()
+    {
+        if (window != null)
             Destroy(window);
-        });
     }
 }

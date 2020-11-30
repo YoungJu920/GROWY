@@ -44,9 +44,14 @@ public class Sound
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField] public Sound[] skillSounds;    // 스킬 사운드
-    [SerializeField] public Sound[] menuSounds;     // 일반 사운드
-    [SerializeField] public Sound[] bgms;       // BGM
+    [SerializeField]
+	StringSoundDictionary menuSoundDictionary;
+
+    [SerializeField]
+	StringSoundDictionary skillSoundDictionary;
+
+    [SerializeField]
+    StringSoundDictionary bgmSoundDictionary;
 
     public AudioSource audioSource;
 
@@ -55,49 +60,40 @@ public class AudioManager : Singleton<AudioManager>
     // Use this for initialization
     void Start()
     {
-        for (int i = 0; i < skillSounds.Length; i++)
+        InitSoundObjects(menuSoundDictionary);
+        InitSoundObjects(skillSoundDictionary);
+    }
+
+    void InitSoundObjects(StringSoundDictionary soundDictionary)
+    {
+        foreach (KeyValuePair<string, Sound> item in soundDictionary)
         {
-            GameObject soundObject = new GameObject("Sound File " + i + " " + skillSounds[i].name);
-            skillSounds[i].SetSource(soundObject.AddComponent<AudioSource>());
+            Sound sound = item.Value;
+            GameObject soundObject = new GameObject("Sound File : " + sound.name);
+            sound.SetSource(soundObject.AddComponent<AudioSource>());
             soundObject.transform.SetParent(this.transform);
         }
-
-        for (int i = 0; i < menuSounds.Length; i++)
-        {
-            GameObject soundObject = new GameObject("Sound File " + i + " " + menuSounds[i].name);
-            menuSounds[i].SetSource(soundObject.AddComponent<AudioSource>());
-            soundObject.transform.SetParent(this.transform);
-        }
     }
 
-    public void PlayMenuSound(string _name)
+    public void PlayMenuSound(string key)
     {
-        for (int i = 0; i < menuSounds.Length; i++)
-        {
-            if (_name == menuSounds[i].name)
-            {
-                menuSounds[i].Play();
-                return;
-            }
-        }
+        if (menuSoundDictionary.ContainsKey(key))
+            menuSoundDictionary[key].Play();
     }
 
-    public void PlaySkillSound(string _name)
+    public void PlaySkillSound(string key)
     {
-        for (int i = 0; i < skillSounds.Length; i++)
-        {
-            if (_name == skillSounds[i].name)
-            {
-                skillSounds[i].Play();
-                return;
-            }
-        }
+        if (skillSoundDictionary.ContainsKey(key))
+            skillSoundDictionary[key].Play();
     }
 
-    public void PlayBGM(SceneType sceneType)
+    public void PlayBGMSound(string key)
     {
-        audioSource.clip = bgms[(int)sceneType].clip;
-        audioSource.Play();
+        if (bgmSoundDictionary.ContainsKey(key))
+        {
+            audioSource.clip = bgmSoundDictionary[key].clip;
+            audioSource.Play();
+        }
     }
 
     public void SetBGMVolumn(float _volumn)
@@ -137,9 +133,9 @@ public class AudioManager : Singleton<AudioManager>
 
     public void FadeInBGM()
     {
-        //StopAllCoroutines();
         StartCoroutine(FadeInBGMCoroutine());
     }
+    
     IEnumerator FadeInBGMCoroutine()
     {
         for (float i = 0f; i <= 1f; i += 0.01f)
@@ -149,16 +145,16 @@ public class AudioManager : Singleton<AudioManager>
         }
     }
 
-    public void StopAndPlayBGM(SceneType sceneType)        // 이전 BGM을 FadeOut시키고 새 BGM을 FadeIn
+    public void StopAndPlayBGM(string key)        // 이전 BGM을 FadeOut시키고 새 BGM을 FadeIn
     {
-        StartCoroutine(StopAndPlayBGMCoroutine(sceneType));
+        StartCoroutine(StopAndPlayBGMCoroutine(key));
     }
 
-    IEnumerator StopAndPlayBGMCoroutine(SceneType sceneType)
+    IEnumerator StopAndPlayBGMCoroutine(string key)
     {
         yield return StartCoroutine(FadeOutBGMCoroutine());
 
-        PlayBGM(sceneType);
+        PlayBGMSound(key);
 
         FadeInBGM();
     }

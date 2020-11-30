@@ -38,9 +38,15 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Defines\DefsScene.cs" />
+     <Compile Include="Assets\Scripts\Defines\DefsUI.cs" />
      <Compile Include="Assets\Scripts\Pattern\DontDestroy.cs" />
      <Compile Include="Assets\Scripts\Pattern\Singleton.cs" />
+     <Compile Include="Assets\Scripts\Server\LoginManager.cs" />
      <Compile Include="Assets\Scripts\UI\PopupManager.cs" />
+     <Compile Include="Assets\Scripts\Utility\Utility.cs" />
+     <Compile Include="Assets\SerializableDictionary\Example\SerializableDictionaryExample.cs" />
+     <Compile Include="Assets\SerializableDictionary\Example\UserSerializableDictionaries.cs" />
+     <Compile Include="Assets\SerializableDictionary\SerializableDictionary.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
