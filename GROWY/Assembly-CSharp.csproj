@@ -37,10 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
+     <Compile Include="Assets\Scripts\Defines\DefsPHP.cs" />
      <Compile Include="Assets\Scripts\Defines\DefsScene.cs" />
      <Compile Include="Assets\Scripts\Defines\DefsUI.cs" />
-     <Compile Include="Assets\Scripts\Pattern\DontDestroy.cs" />
      <Compile Include="Assets\Scripts\Pattern\Singleton.cs" />
+     <Compile Include="Assets\Scripts\Scene\Scene.cs" />
+     <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
+     <Compile Include="Assets\Scripts\Scene\TitleScene.cs" />
      <Compile Include="Assets\Scripts\Server\LoginManager.cs" />
      <Compile Include="Assets\Scripts\UI\PopupManager.cs" />
      <Compile Include="Assets\Scripts\Utility\Utility.cs" />

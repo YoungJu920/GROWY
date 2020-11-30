@@ -44,21 +44,17 @@ public class Sound
 
 public class AudioManager : Singleton<AudioManager>
 {
-    [SerializeField]
-	StringSoundDictionary menuSoundDictionary;
+    [Header("SOUND DICTIONARY")]
+    [SerializeField] StringSoundDictionary menuSoundDictionary;
+    [SerializeField] StringSoundDictionary skillSoundDictionary;
+    [SerializeField] StringSoundDictionary bgmSoundDictionary;
 
-    [SerializeField]
-	StringSoundDictionary skillSoundDictionary;
-
-    [SerializeField]
-    StringSoundDictionary bgmSoundDictionary;
-
-    public AudioSource audioSource;
+    [Header("AUDIO SOURCE")]
+    [SerializeField] AudioSource audioSource;
 
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
 
-    // Use this for initialization
-    void Start()
+    public void Init()
     {
         InitSoundObjects(menuSoundDictionary);
         InitSoundObjects(skillSoundDictionary);

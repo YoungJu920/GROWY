@@ -3,37 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleJSON;
-using UnityEngine.SceneManagement;
 #pragma warning disable 0618
 
-public class LoginManager : MonoBehaviour
+public class LoginManager : Singleton<LoginManager>
 {
     [Header("LOGIN")]
     public GameObject LoginPanel;
     public InputField ID_InputField;
     public InputField PW_InputField;
-    public Button LoginButton = null;
-    public Button SignUpButton = null;
-    string LoginURL;
+    public Button LoginButton;
+    public Button SignUpButton;
 
     [Header("SIGN UP")]
     public GameObject SignUpPanel;
-    public GameObject SpritePanel;
     public InputField NewID_InputField;
     public InputField NewPW_InputField;
     public InputField NewNickname_InputField;
-    public Button OKButton = null;
-    public Button CancleButton = null;
-    string SignUpURL;
-    
-    string LoadExpTableURL;
+    public Button OKButton;
+    public Button CancleButton;
 
-    PopupManager thePopup;
-
+    [Header("CHOICE CHARACTER")]
+    public GameObject SpritePanel;
     public Button[] CharacterBtns;
-    public int SelectedNum = -1;
 
-    void Start()
+    [HideInInspector] int SelectedNum = -1;
+
+    public void Init()
     {
         Utility.AddListener(LoginButton, ButtonType.COMMON_BTN, Login);
 
@@ -45,17 +40,6 @@ public class LoginManager : MonoBehaviour
 
         for (int i = 0; i < 3; i++)
             Utility.AddListener(CharacterBtns[i], ButtonType.SPRITE_BTN, SelectCharacter, i);
-        
-        
-        LoginURL = "http://youngju.tk/Roguelike/Login/Login.php";
-        SignUpURL = "http://youngju.tk/Roguelike/Login/SignUp.php";
-        LoadExpTableURL = "http://youngju.tk/Roguelike/Exp/LoadExpTable.php";
-
-        thePopup = FindObjectOfType<PopupManager>();
-
-        // BGM 재생
-        AudioManager.Instance.PlayBGMSound(SceneType.TITLE_SCENE.ToString());
-        AudioManager.Instance.FadeInBGM();
     }
 
     void SelectCharacter(int num)
@@ -76,29 +60,29 @@ public class LoginManager : MonoBehaviour
         }
     }
 
-    IEnumerator LoadEXPTableCoroutine()
-    {
-        WWWForm form = new WWWForm();
+    // IEnumerator LoadEXPTableCoroutine()
+    // {
+    //     WWWForm form = new WWWForm();
 
-        WWW webRequest = new WWW(LoadExpTableURL, form);
-        yield return webRequest;
+    //     WWW webRequest = new WWW(LoadExpTableURL, form);
+    //     yield return webRequest;
 
-        System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
-        string sz = enc.GetString(webRequest.bytes);
+    //     System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
+    //     string sz = enc.GetString(webRequest.bytes);
 
-        if (sz.Contains("Load Exp Table Success!!"))
-        {
-            var N = JSON.Parse(sz);
-            List<int> exp_table = new List<int>();
+    //     if (sz.Contains("Load Exp Table Success!!"))
+    //     {
+    //         var N = JSON.Parse(sz);
+    //         List<int> exp_table = new List<int>();
 
-            for (int i = 0; i < N.Count; i++)
-            {
-                exp_table.Add(N[i].AsInt);
-            }
+    //         for (int i = 0; i < N.Count; i++)
+    //         {
+    //             exp_table.Add(N[i].AsInt);
+    //         }
 
-            //PlayerStatManager.instance.ExpTable = exp_table;
-        }
-    }
+    //         //PlayerStatManager.instance.ExpTable = exp_table;
+    //     }
+    // }
 
     void Login()
     {
@@ -126,32 +110,43 @@ public class LoginManager : MonoBehaviour
 
     IEnumerator LoginCoroutine()
     {
-        WWWForm form = new WWWForm();
-        form.AddField("Input_id", ID_InputField.text);
-        form.AddField("Input_pass", PW_InputField.text);
+        // WWWForm form = new WWWForm();
+        // form.AddField("Input_id", ID_InputField.text);
+        // form.AddField("Input_pass", PW_InputField.text);
 
-        WWW webRequest = new WWW(LoginURL, form);
-        yield return webRequest;
+        // WWW webRequest = new WWW(DefsPHP.Login_PHP, form);
+        // yield return webRequest;
 
-        System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
-        string sz = enc.GetString(webRequest.bytes);
-        Debug.Log(sz);
+        // yield return Utility.WebRequest(
+        //     new Dictionary<string, string>()
+        //     { {"Input_id", ID_InputField.text}, {"Input_pass", PW_InputField.text} }
+        //     , DefsPHP.Login_PHP);
 
-        if (sz.Contains("ID does not exist"))
+        string result = "";
+
+        yield return StartCoroutine(Utility.WebRequest(
+            new Dictionary<string, string>() { {"Input_id", ID_InputField.text}, {"Input_pass", PW_InputField.text} }
+            , DefsPHP.Login_PHP
+            , (x) => { result = x; }
+            , true
+        ));
+
+
+        if (result.Contains("ID does not exist"))
         {
-            thePopup.CreatePopupOneBtn("해당하는 아이디가 없습니다.", null);
+            PopupManager.Instance.CreatePopupOneBtn("해당하는 아이디가 없습니다.");
             yield return null;
         }
             
-        else if (sz.Contains("Pass does not Match"))
+        else if (result.Contains("Pass does not Match"))
         {
-            thePopup.CreatePopupOneBtn("비밀번호가 다릅니다.", null);
+            PopupManager.Instance.CreatePopupOneBtn("비밀번호가 다릅니다.");
             yield return null;
         }
             
         else
         {
-            var N = JSON.Parse(sz);
+            var N = JSON.Parse(result);
 
             // if (N["user_index"] != null)    PlayerStatManager.instance.UserIndex = N["user_index"];
             // if (N["nickname"] != null)      PlayerStatManager.instance.PlayerName = N["nickname"];
@@ -181,12 +176,14 @@ public class LoginManager : MonoBehaviour
             // }
 
             // 경험치 테이블 불러오기
-            yield return StartCoroutine(LoadEXPTableCoroutine());
+            //yield return StartCoroutine(LoadEXPTableCoroutine());
 
             // BGM 꺼주기
-            AudioManager.Instance.FadeOutBGM();     // StopBGM 포함
+            //AudioManager.Instance.FadeOutBGM();     // StopBGM 포함
 
-            SceneManager.LoadScene("TownScene");
+            SceneManager.Instance.ChangeScene("TownScene");
+
+            //SceneManager.LoadScene("TownScene");
         }
     }
 
@@ -205,19 +202,19 @@ public class LoginManager : MonoBehaviour
         // 문자열 길이 제한
         if (id.Length < 3 || pw.Length > 10)
         {
-            thePopup.CreatePopupOneBtn("ID는 3글자 이상, 10글자 이하로 작성해 주세요.");
+            PopupManager.Instance.CreatePopupOneBtn("ID는 3글자 이상, 10글자 이하로 작성해 주세요.");
             yield break;
         }
         if (pw.Length < 4 || pw.Length > 12)
         {
-            thePopup.CreatePopupOneBtn("PW는 4글자 이상, 12글자 이하로 작성해 주세요.");
+            PopupManager.Instance.CreatePopupOneBtn("PW는 4글자 이상, 12글자 이하로 작성해 주세요.");
             yield break;
         }
 
         // 캐릭터 선택했는지 확인
         if (SelectedNum == -1)
         {
-            thePopup.CreatePopupOneBtn("캐릭터를 선택하세요.", null);
+            PopupManager.Instance.CreatePopupOneBtn("캐릭터를 선택하세요.");
             yield break;
         }
 
@@ -227,7 +224,7 @@ public class LoginManager : MonoBehaviour
         form.AddField("Input_nickname", NewNickname_InputField.text, System.Text.Encoding.GetEncoding("euc-kr"));
         form.AddField("Input_class_type", SelectedNum);
 
-        WWW webRequest = new WWW(SignUpURL, form);
+        WWW webRequest = new WWW(DefsPHP.SignUp_PHP, form);
         yield return webRequest;
 
         System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
@@ -235,16 +232,9 @@ public class LoginManager : MonoBehaviour
         Debug.Log(sz);
 
         if (sz.Contains("ID does exist."))
-            thePopup.CreatePopupOneBtn("동일한 아이디가 존재합니다.", null);
+            PopupManager.Instance.CreatePopupOneBtn("동일한 아이디가 존재합니다.");
 
-        //if (sz.Contains("Create sucess."))
-            //thePopup.CreatePopupOneBtn("아이디 등록에 성공했습니다.", new GlobalValue.MethodPointer(ReturnLoginWindow));
+        if (sz.Contains("Create sucess."))
+            PopupManager.Instance.CreatePopupOneBtn("아이디 등록에 성공했습니다.", ShowLoginPanel);
     }
-
-    // void ReturnLoginWindow(NPCManager npc = null)
-    // {
-    //     LoginPanel.SetActive(true);
-    //     spritePanel.SetActive(false);
-    //     SignUpPanel.SetActive(false);
-    // }
 }

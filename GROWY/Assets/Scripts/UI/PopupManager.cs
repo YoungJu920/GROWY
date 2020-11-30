@@ -6,10 +6,10 @@ using System;
 
 public class PopupManager : Singleton<PopupManager>
 {
-    [Header("Transform")]
+    [Header("CANVAS TRANSFORM")]
     public Transform  canvasTR;
 
-    [Header("PopupPrefabs")]
+    [Header("POPUP PREFABS")]
     public GameObject PopupOneBtn;
     public GameObject PopupTwoBtn;
 
