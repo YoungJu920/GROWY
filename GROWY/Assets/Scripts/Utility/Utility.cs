@@ -27,13 +27,16 @@ public class Utility
             });
     }
 
-    public static IEnumerator WebRequest(Dictionary<string, string> fields, string php, Action<string> callback, bool printLog = false)
+    public static IEnumerator WebRequest(POST[] posts, string php, Action<string> callback, bool printLog = false)
     {
         WWWForm form = new WWWForm();
 
-        foreach(KeyValuePair<string, string> item in fields)
+        for (int i = 0; i < posts.Length; i++)
         {
-            form.AddField(item.Key, item.Value);
+            if (posts[i].encoding != null)
+                form.AddField(posts[i].key, posts[i].value, posts[i].encoding);
+            else
+                form.AddField(posts[i].key, posts[i].value);
         }
 
         WWW webRequest = new WWW(php, form);

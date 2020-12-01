@@ -8,5 +8,6 @@ public class TitleScene : Scene
     {
         LoginManager.Instance.Init();
         AudioManager.Instance.Init();
+        PopupManager.Instance.Init();
     }
 }

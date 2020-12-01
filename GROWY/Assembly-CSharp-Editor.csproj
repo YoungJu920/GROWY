@@ -635,22 +635,18 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{190603c0-7412-23d8-48fb-72ad59b9b95f}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="Assembly-CSharp.csproj">
       <Project>{a4853f4e-9dad-b15e-a07a-a3652f88f429}</Project>
       <Name>Assembly-CSharp</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="SuperTiled2UnityEditor.csproj">
       <Project>{c29fc7cb-3d39-7f23-db21-76eeefaf0585}</Project>
       <Name>SuperTiled2UnityEditor</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="SuperTiled2Unity.csproj">
       <Project>{5dc99a1c-b117-9761-fba1-e7c938208db7}</Project>
       <Name>SuperTiled2Unity</Name>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

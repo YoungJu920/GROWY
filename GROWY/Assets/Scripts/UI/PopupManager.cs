@@ -15,6 +15,11 @@ public class PopupManager : Singleton<PopupManager>
 
     private GameObject window;
 
+    public void Init()
+    {
+        window = null;
+    }
+
     public void CreatePopupOneBtn(string text, Action method = null, float scale = 1.0f)
     {
         AudioManager.Instance.PlayMenuSound(PopupType.COMMON_POPUP.ToString());
