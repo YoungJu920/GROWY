@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
+using UnityEngine.Networking;
 using System;
 
 public struct POST
@@ -31,9 +32,9 @@ public struct POST
 
 public class ServerManager : Singleton<ServerManager>
 {
-    public void Login(string id, string password, Action<string> action)
+    public void Login(string id, string password)
     {
-        StartCoroutine(LoginCoroutine(id, password, action));
+        StartCoroutine(LoginCoroutine(id, password));
     }
 
     public void SignUp(string id, string password, string nickname, int class_type)
@@ -46,27 +47,43 @@ public class ServerManager : Singleton<ServerManager>
 
     }
 
-    IEnumerator LoginCoroutine(string id, string password, Action<string> action)
+    IEnumerator LoginCoroutine(string id, string password)
     {
-        // Action action = Test1;
-        // action += Test2;
-
-        // var first = action.GetInvocationList()[0];
-        // first.DynamicInvoke();
-
         string result = "";
 
-        yield return StartCoroutine(Utility.WebRequest(
-            new POST[] { new POST("Input_id", id), new POST("Input_pass", password) }
-            , DefsPHP.Login_PHP
-            , (x) => { result = x; }
-            , true
-        ));
+        // yield return StartCoroutine(Utility.WebRequest(
+        //     new POST[] { new POST("Input_id", id), new POST("Input_pass", password) }
+        //     , DefsPHP.Login_PHP
+        //     , (x) => { result = x; }
+        //     , true
+        // ));
 
-        if (result == "")
-            yield return null;
+        WWWForm form = new WWWForm();
+        form.AddField("Input_id", id);
+        form.AddField("Input_pass", password);
 
-        action?.Invoke(result);
+        UnityWebRequest request = new UnityWebRequest();
+
+        using (request = UnityWebRequest.Post(DefsPHP.Login_PHP, form))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError)
+            {
+                Debug.Log(request.error);
+            }
+            else
+            {
+                System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
+                result = enc.GetString(request.downloadHandler.data);
+                Debug.Log(result);
+            }
+        }
+
+        // if (result == "")
+        //     yield return null;
+
+        //action?.Invoke(result);
     }
 
     IEnumerator SignUpCoroutine(string id, string password, string nickname, int class_type)

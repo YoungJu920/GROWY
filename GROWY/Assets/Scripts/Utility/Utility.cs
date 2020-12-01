@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleJSON;
+using UnityEngine.Networking;
 using System;
 
 public class Utility
@@ -39,15 +40,28 @@ public class Utility
                 form.AddField(posts[i].key, posts[i].value);
         }
 
-        WWW webRequest = new WWW(php, form);
-        yield return webRequest;
+        UnityWebRequest request = new UnityWebRequest();
 
-        System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
-        string sz = enc.GetString(webRequest.bytes);
+        string result = "";
+
+        using (request = UnityWebRequest.Post(php, form))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError)
+            {
+                Debug.Log(request.error);
+            }
+            else
+            {
+                System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
+                result = enc.GetString(request.downloadHandler.data);
+                
+                if (printLog)
+                    Debug.Log(result);
+            }
+        }
         
-        if (printLog)
-            Debug.Log(sz);
-
-        callback(sz);
+        callback(result);
     }
 }

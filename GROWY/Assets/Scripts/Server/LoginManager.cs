@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using SimpleJSON;
+using UnityEngine.Networking;
+using System;
 
 public enum LoginReturnCode
 {
@@ -68,7 +70,8 @@ public class LoginManager : Singleton<LoginManager>
 
     void Login()
     {
-        ServerManager.Instance.Login(ID_InputField.text, PW_InputField.text, ResultOfLogin);
+        ServerManager.Instance.Login(ID_InputField.text, PW_InputField.text);
+        //StartCoroutine(LoginCoroutine(ID_InputField.text, PW_InputField.text));
     }
 
     void SignUp()
@@ -80,7 +83,12 @@ public class LoginManager : Singleton<LoginManager>
     {
         var N = JSON.Parse(result);
 
-        switch((LoginReturnCode)N["return_code"].AsInt)
+        if (N["return_code"] == null)
+            Debug.Log("return code was not inserted.");
+
+        LoginReturnCode return_code = (LoginReturnCode)(N["return_code"].AsInt);
+
+        switch(return_code)
         {
             case LoginReturnCode.NO_EXIST_ID:
             {
@@ -143,5 +151,46 @@ public class LoginManager : Singleton<LoginManager>
         LoginPanel.SetActive(false);
         SignUpPanel.SetActive(true);
         SpritePanel.SetActive(true);
+    }
+
+    IEnumerator LoginCoroutine(string id, string password)
+    {
+        string result = "";
+
+        // yield return StartCoroutine(Utility.WebRequest(
+        //     new POST[] { new POST("Input_id", id), new POST("Input_pass", password) }
+        //     , DefsPHP.Login_PHP
+        //     , (x) => { result = x; }
+        //     , true
+        // ));
+
+        WWWForm form = new WWWForm();
+        form.AddField("Input_id", id);
+        form.AddField("Input_pass", password);
+
+        UnityWebRequest request = new UnityWebRequest();
+
+        using (request = UnityWebRequest.Post(DefsPHP.Login_PHP, form))
+        {
+            yield return request.SendWebRequest();
+
+            if (request.isNetworkError)
+            {
+                Debug.Log(request.error);
+            }
+            else
+            {
+                System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
+                result = enc.GetString(request.downloadHandler.data);
+                Debug.Log(result);
+            }
+        }
+
+        //Debug.Log("Login Coroutine"); 
+
+        // if (result == "")
+        //     yield return null;
+
+        //action?.Invoke(result);
     }
 }
