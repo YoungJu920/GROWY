@@ -1,0 +1,33 @@
+fileFormatVersion: 2
+guid: dd42fdaee5fba014886ecc423f23710e
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 1fa25d03934ea624a82bf2fcee6f0873, type: 3}
+  missingFiles: []
+  errors: []
+  warnings:
+  - Tileset '003-G_Ground01' is an embedded tileset. Exported tilesets are preferred.
+  - Tileset '002-Woods01' is an embedded tileset. Exported tilesets are preferred.
+  - Tileset '004-Mountain01' is an embedded tileset. Exported tilesets are preferred.
+  - Tileset '003-Forest01' is an embedded tileset. Exported tilesets are preferred.
+  missingSortingLayers: []
+  missingLayers: []
+  missingTags: []
+  importerVersion: 21
+  pixelsPerUnit: 100
+  edgesPerEllipse: 32
+  numberOfObjectsImported: 1186
+  tilesAsObjects: 0
+  sortingMode: 0
+  isIsometric: 0
+  customImporterClassName: 
+  internalTilesets:
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
+  - {instanceID: 0}
