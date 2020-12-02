@@ -42,7 +42,10 @@
      <Compile Include="Assets\Scripts\Defines\DefsPHP.cs" />
      <Compile Include="Assets\Scripts\Defines\DefsScene.cs" />
      <Compile Include="Assets\Scripts\Defines\DefsUI.cs" />
+     <Compile Include="Assets\Scripts\Joysticks\FixedJoystick.cs" />
+     <Compile Include="Assets\Scripts\Joysticks\Joystick.cs" />
      <Compile Include="Assets\Scripts\MovingObject\MovingObject.cs" />
+     <Compile Include="Assets\Scripts\MovingObject\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Pattern\Singleton.cs" />
      <Compile Include="Assets\Scripts\Scene\Scene.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />

@@ -90,7 +90,7 @@ public class MovingObject : MonoBehaviour
             animator.SetFloat("DirX", dir_vector.x);
             animator.SetFloat("DirY", dir_vector.y);
             
-            // 충돌방지기능
+            // 충돌 방지
             while (true)
             {
                 if (CheckCollision())
