@@ -6,5 +6,4 @@ public class DefsPHP
 {
     public static string Login_PHP = "http://youngju.tk/Roguelike/Login/Login.php";
     public static string SignUp_PHP = "http://youngju.tk/Roguelike/Login/SignUp.php";
-    
 }
