@@ -7,64 +7,74 @@ using System;
 
 public struct POST
 {
-    public string key;
-    public string value;
-    public System.Text.Encoding encoding;
+    public string php;
+    public POST_ITEM[] post_items;
 
-    public POST(string key, string value, string encoding_type = null)
+    public POST(string php, POST_ITEM[] post_items)
     {
-        this.key = key;
-        this.value = value;
-        
-        if (encoding_type != null)
-            this.encoding = System.Text.Encoding.GetEncoding(encoding_type);
-        else
-            this.encoding = null;
+        this.php = php;
+        this.post_items = post_items;
     }
+}
 
-    public POST(string key, int value)
+public struct POST_ITEM
+{
+    public string key { get; set; }
+    public System.Text.Encoding encoding { get; set; }
+
+    public POST_ITEM(string key, System.Text.Encoding encoding = null)
     {
         this.key = key;
-        this.value = value.ToString();
-        this.encoding = null;
+        this.encoding = encoding;
     }
 }
 
 public class ServerManager : Singleton<ServerManager>
 {
-    public void Login(string id, string password)
+    private Dictionary<string, POST> post_forms;
+
+    public void Init()
     {
-        StartCoroutine(LoginCoroutine(id, password));
+        post_forms = new Dictionary<string, POST>();
+
+        post_forms.Add( "LOGIN"
+            , new POST(DefsPHP.Login_PHP
+            , new POST_ITEM[]{ new POST_ITEM("Input_id"), new POST_ITEM("Input_pass") }) );
+
+        post_forms.Add( "SIGN_UP"
+            , new POST(DefsPHP.SignUp_PHP
+            , new POST_ITEM[]{ new POST_ITEM("Input_id"), new POST_ITEM("Input_pass"),
+            new POST_ITEM("Input_nickname", GetEncoding("euc-kr")), new POST_ITEM("Input_class_type") }) );
     }
 
-    public void SignUp(string id, string password, string nickname, int class_type)
+    public void Request(string post_key, string[] values, Action<string> callback)
     {
-
+        StartCoroutine(RequestCoroutine(post_key, values, callback));
     }
 
-    public void Test(string s)
+    IEnumerator RequestCoroutine(string post_key, string[] values, Action<string> callback)
     {
+        string php = post_forms[post_key].php;
+        POST_ITEM[] post_items = post_forms[post_key].post_items;
 
-    }
+        if (values.Length != post_items.Length)
+            yield break;
 
-    IEnumerator LoginCoroutine(string id, string password)
-    {
         string result = "";
 
-        // yield return StartCoroutine(Utility.WebRequest(
-        //     new POST[] { new POST("Input_id", id), new POST("Input_pass", password) }
-        //     , DefsPHP.Login_PHP
-        //     , (x) => { result = x; }
-        //     , true
-        // ));
-
         WWWForm form = new WWWForm();
-        form.AddField("Input_id", id);
-        form.AddField("Input_pass", password);
+
+        for (int i = 0; i < post_items.Length; i++)
+        {
+            if (post_items[i].encoding == null)
+                form.AddField(post_items[i].key, values[i]);
+            else
+                form.AddField(post_items[i].key, values[i], post_items[i].encoding);
+        }
 
         UnityWebRequest request = new UnityWebRequest();
 
-        using (request = UnityWebRequest.Post(DefsPHP.Login_PHP, form))
+        using (request = UnityWebRequest.Post(php, form))
         {
             yield return request.SendWebRequest();
 
@@ -80,54 +90,11 @@ public class ServerManager : Singleton<ServerManager>
             }
         }
 
-        // if (result == "")
-        //     yield return null;
-
-        //action?.Invoke(result);
+        callback?.Invoke(result);
     }
 
-    IEnumerator SignUpCoroutine(string id, string password, string nickname, int class_type)
+    System.Text.Encoding GetEncoding(string key)
     {
-        // 공백인지 확인
-        if (id == "" || password == "")
-            yield break;
-
-        // 띄어쓰기 제거 후 확인
-        if (id.Trim() == "" || password.Trim() == "")
-            yield break;
-
-        // 문자열 길이 제한
-        if (id.Length < 3 || id.Length > 10)
-        {
-            PopupManager.Instance.CreatePopupOneBtn("ID는 3글자 이상, 10글자 이하로 작성해 주세요.");
-            yield break;
-        }
-        if (password.Length < 4 || password.Length > 12)
-        {
-            PopupManager.Instance.CreatePopupOneBtn("PW는 4글자 이상, 12글자 이하로 작성해 주세요.");
-            yield break;
-        }
-
-        // 캐릭터 선택했는지 확인
-        if (class_type == -1)
-        {
-            PopupManager.Instance.CreatePopupOneBtn("캐릭터를 선택하세요.");
-            yield break;
-        }
-
-        string result = "";
-
-        yield return StartCoroutine(Utility.WebRequest(
-            new POST[] { new POST("Input_id", id), new POST("Input_pass", password), new POST("Input_nickname", nickname, "euc-kr"), new POST("Input_class_type", class_type) }
-            , DefsPHP.SignUp_PHP
-            , (x) => { result = x; }
-            , true
-        ));
-
-        if (result.Contains("ID does exist."))
-            PopupManager.Instance.CreatePopupOneBtn("동일한 아이디가 존재합니다.");
-
-        // if (result.Contains("Create sucess."))
-        //     PopupManager.Instance.CreatePopupOneBtn("아이디 등록에 성공했습니다.", ShowLoginPanel);
+        return System.Text.Encoding.GetEncoding(key);
     }
 }

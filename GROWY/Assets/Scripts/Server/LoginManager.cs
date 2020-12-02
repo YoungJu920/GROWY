@@ -13,6 +13,12 @@ public enum LoginReturnCode
     NO_MATCH_PW = 2
 }
 
+public enum SignUpReturnCode
+{
+    SUCCESS = 0,
+    SAME_ID_EXIST = 1
+}
+
 public class LoginManager : Singleton<LoginManager>
 {
     [Header("LOGIN")]
@@ -70,13 +76,47 @@ public class LoginManager : Singleton<LoginManager>
 
     void Login()
     {
-        ServerManager.Instance.Login(ID_InputField.text, PW_InputField.text);
-        //StartCoroutine(LoginCoroutine(ID_InputField.text, PW_InputField.text));
+        string id = ID_InputField.text;
+        string password = PW_InputField.text;
+
+        ServerManager.Instance.Request("LOGIN", new string[]{id, password}, ResultOfLogin);
     }
 
     void SignUp()
     {
-        ServerManager.Instance.SignUp(NewID_InputField.text, NewPW_InputField.text, NewNickname_InputField.text, SelectedNum);
+        string id = NewID_InputField.text;
+        string password = NewPW_InputField.text;
+        string nickname = NewNickname_InputField.text;
+        int class_type = SelectedNum;
+
+        // 공백인지 확인
+        if (id == "" || password == "")
+            return;
+
+        // 띄어쓰기 제거 후 확인
+        if (id.Trim() == "" || password.Trim() == "")
+            return;
+
+        // 문자열 길이 제한
+        if (id.Length < 3 || id.Length > 10)
+        {
+            PopupManager.Instance.CreatePopupOneBtn("ID는 3글자 이상, 10글자 이하로 작성해 주세요.");
+            return;
+        }
+        if (password.Length < 4 || password.Length > 12)
+        {
+            PopupManager.Instance.CreatePopupOneBtn("PW는 4글자 이상, 12글자 이하로 작성해 주세요.");
+            return;
+        }
+
+        // 캐릭터 선택했는지 확인
+        if (class_type == -1)
+        {
+            PopupManager.Instance.CreatePopupOneBtn("캐릭터를 선택하세요.");
+            return;
+        }
+
+        ServerManager.Instance.Request("SIGN_UP", new string[]{id, password, nickname, class_type.ToString()}, ResultOfSignUp);
     }
 
     void ResultOfLogin(string result)
@@ -84,7 +124,10 @@ public class LoginManager : Singleton<LoginManager>
         var N = JSON.Parse(result);
 
         if (N["return_code"] == null)
+        {
             Debug.Log("return code was not inserted.");
+            return;
+        }
 
         LoginReturnCode return_code = (LoginReturnCode)(N["return_code"].AsInt);
 
@@ -139,6 +182,34 @@ public class LoginManager : Singleton<LoginManager>
         }
     }
 
+    void ResultOfSignUp(string result)
+    {
+        var N = JSON.Parse(result);
+
+        if (N["return_code"] == null)
+        {
+            Debug.Log("return code was not inserted.");
+            return;
+        }
+
+        SignUpReturnCode return_code = (SignUpReturnCode)(N["return_code"].AsInt);
+
+        switch(return_code)
+        {
+            case SignUpReturnCode.SAME_ID_EXIST:
+            {
+                PopupManager.Instance.CreatePopupOneBtn("동일한 아이디가 존재합니다.");
+                break;
+            }
+
+            case SignUpReturnCode.SUCCESS:
+            {
+                PopupManager.Instance.CreatePopupOneBtn("아이디 등록에 성공했습니다.", ShowLoginPanel);
+                break;
+            }
+        }
+    }
+
     void ShowLoginPanel()
     {
         LoginPanel.SetActive(true);
@@ -151,46 +222,5 @@ public class LoginManager : Singleton<LoginManager>
         LoginPanel.SetActive(false);
         SignUpPanel.SetActive(true);
         SpritePanel.SetActive(true);
-    }
-
-    IEnumerator LoginCoroutine(string id, string password)
-    {
-        string result = "";
-
-        // yield return StartCoroutine(Utility.WebRequest(
-        //     new POST[] { new POST("Input_id", id), new POST("Input_pass", password) }
-        //     , DefsPHP.Login_PHP
-        //     , (x) => { result = x; }
-        //     , true
-        // ));
-
-        WWWForm form = new WWWForm();
-        form.AddField("Input_id", id);
-        form.AddField("Input_pass", password);
-
-        UnityWebRequest request = new UnityWebRequest();
-
-        using (request = UnityWebRequest.Post(DefsPHP.Login_PHP, form))
-        {
-            yield return request.SendWebRequest();
-
-            if (request.isNetworkError)
-            {
-                Debug.Log(request.error);
-            }
-            else
-            {
-                System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
-                result = enc.GetString(request.downloadHandler.data);
-                Debug.Log(result);
-            }
-        }
-
-        //Debug.Log("Login Coroutine"); 
-
-        // if (result == "")
-        //     yield return null;
-
-        //action?.Invoke(result);
     }
 }
