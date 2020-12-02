@@ -46,6 +46,7 @@
      <Compile Include="Assets\Scripts\Scene\TitleScene.cs" />
      <Compile Include="Assets\Scripts\Server\LoginManager.cs" />
      <Compile Include="Assets\Scripts\Server\ServerManager.cs" />
+     <Compile Include="Assets\Scripts\UI\CameraManager.cs" />
      <Compile Include="Assets\Scripts\UI\PopupManager.cs" />
      <Compile Include="Assets\Scripts\UserData\PlayerStatManager.cs" />
      <Compile Include="Assets\Scripts\Utility\Utility.cs" />
