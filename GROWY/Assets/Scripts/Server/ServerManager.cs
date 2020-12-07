@@ -49,6 +49,10 @@ public class ServerManager : Singleton<ServerManager>
         post_forms.Add( "LOAD_PLAYER_STAT"
             , new POST(DefsPHP.LoadPlayerStat_PHP
             , new POST_ITEM[]{ new POST_ITEM("Input_user_index") }) );
+
+         post_forms.Add( "LOAD_PLAYER_INVENTORY"
+            , new POST(DefsPHP.LoadPlayerInventory_PHP
+            , new POST_ITEM[]{ new POST_ITEM("Input_user_index") }) );
     }
 
     public void Request(string post_key, string[] values, Action<string> callback, bool log = false)

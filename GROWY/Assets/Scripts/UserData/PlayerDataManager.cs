@@ -8,6 +8,12 @@ public enum LoadPlayerStatReturnCode
     NO_EXIST_USER_INDEX = 1
 }
 
+public enum LoadPlayerInventoryReturnCode
+{
+    SUCCESS = 0,
+    NO_EXIST_USER_INDEX = 1
+}
+
 public class PlayerDataManager : Singleton<PlayerDataManager>
 {
     private StatData statData {get; set;}
@@ -23,6 +29,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
         user_index = PlayerPrefs.GetInt("user_index");
 
         LoadPlayerStat();
+        LoadPlayerInventory();
     }
 
     void LoadPlayerStat()
@@ -32,7 +39,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
 
     void LoadPlayerInventory()
     {
-        ServerManager.Instance.Request("LOAD_INVENTORY", new string[]{user_index.ToString()}, ResultOfLoadPlayerStat, true);
+        ServerManager.Instance.Request("LOAD_PLAYER_INVENTORY", new string[]{user_index.ToString()}, ResultOfLoadPlayerInventory, true);
     }
 
     void ResultOfLoadPlayerStat(string result)
@@ -58,6 +65,33 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
                 list.Remove("user_index");
 
                 statData.Init(list);
+                break;
+            }
+        }
+    }
+
+    void ResultOfLoadPlayerInventory(string result)
+    {
+        var list = Utility.ParsingString(result);
+
+        if (list == null)
+            return;
+
+        LoadPlayerInventoryReturnCode return_code = (LoadPlayerInventoryReturnCode)(list["return_code"].AsInt);
+
+        switch(return_code)
+        {
+            case LoadPlayerInventoryReturnCode.NO_EXIST_USER_INDEX:
+            {
+                Debug.Log("NO_EXIST_USER_INDEX : " + user_index);
+                break;
+            }
+
+            case LoadPlayerInventoryReturnCode.SUCCESS:
+            {
+                list.Remove("return_code");
+
+                inventoryData.Init(list);
                 break;
             }
         }

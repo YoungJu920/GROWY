@@ -67,6 +67,7 @@ public class ItemInfo
         itemCode = origin.itemCode;
         itemName = origin.itemName;
         itemIconName = origin.itemIconName;
+        itemIcon = origin.itemIcon;
         itemCount = origin.itemCount;
         itemPartsType = origin.itemPartsType;
         itemLevel = origin.itemLevel;
