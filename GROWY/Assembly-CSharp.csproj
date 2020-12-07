@@ -38,10 +38,13 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
      <Compile Include="Assets\Scripts\Define\DefsGame.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsItem.cs" />
      <Compile Include="Assets\Scripts\Define\DefsObject.cs" />
      <Compile Include="Assets\Scripts\Define\DefsPHP.cs" />
      <Compile Include="Assets\Scripts\Define\DefsScene.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsSkill.cs" />
      <Compile Include="Assets\Scripts\Define\DefsUI.cs" />
+     <Compile Include="Assets\Scripts\Item\ItemInfo.cs" />
      <Compile Include="Assets\Scripts\Joystick\FixedJoystick.cs" />
      <Compile Include="Assets\Scripts\Joystick\Joystick.cs" />
      <Compile Include="Assets\Scripts\MovingObject\MovingObject.cs" />
@@ -54,7 +57,9 @@
      <Compile Include="Assets\Scripts\Scene\TownScene.cs" />
      <Compile Include="Assets\Scripts\Server\LoginManager.cs" />
      <Compile Include="Assets\Scripts\Server\ServerManager.cs" />
+     <Compile Include="Assets\Scripts\Skill\SkillInfo.cs" />
      <Compile Include="Assets\Scripts\UI\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\UI\IconAtlasManager.cs" />
      <Compile Include="Assets\Scripts\UI\PopupManager.cs" />
      <Compile Include="Assets\Scripts\UserData\InventoryData.cs" />
      <Compile Include="Assets\Scripts\UserData\PlayerDataManager.cs" />

@@ -30,6 +30,11 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
         ServerManager.Instance.Request("LOAD_PLAYER_STAT", new string[]{user_index.ToString()}, ResultOfLoadPlayerStat, true);
     }
 
+    void LoadPlayerInventory()
+    {
+        ServerManager.Instance.Request("LOAD_INVENTORY", new string[]{user_index.ToString()}, ResultOfLoadPlayerStat, true);
+    }
+
     void ResultOfLoadPlayerStat(string result)
     {
         var list = Utility.ParsingString(result);
@@ -51,7 +56,7 @@ public class PlayerDataManager : Singleton<PlayerDataManager>
             {
                 list.Remove("return_code");
                 list.Remove("user_index");
-                
+
                 statData.Init(list);
                 break;
             }

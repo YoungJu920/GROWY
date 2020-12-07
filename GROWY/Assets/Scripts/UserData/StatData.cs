@@ -14,4 +14,16 @@ public class StatData
             statDictionary.Add(node.Key, node.Value);
         }
     }
+
+    public void IncreaseStats(Option op)
+    {
+        if (statDictionary.ContainsKey(op.optionName))
+            statDictionary[op.optionName] += op.optionValue;
+    }
+
+    public void DecreaseStats(Option op)
+    {
+        if (statDictionary.ContainsKey(op.optionName))
+            statDictionary[op.optionName] -= op.optionValue;
+    }
 }

@@ -40,4 +40,9 @@ public class Utility
 
         return N;
     }
+
+    public static string ByteArrayToString(byte[] ba)
+    {
+        return System.BitConverter.ToString(ba).Replace("-", "");
+    }
 }
