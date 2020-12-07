@@ -37,24 +37,28 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Audio\AudioManager.cs" />
-     <Compile Include="Assets\Scripts\Defines\DefsGame.cs" />
-     <Compile Include="Assets\Scripts\Defines\DefsObject.cs" />
-     <Compile Include="Assets\Scripts\Defines\DefsPHP.cs" />
-     <Compile Include="Assets\Scripts\Defines\DefsScene.cs" />
-     <Compile Include="Assets\Scripts\Defines\DefsUI.cs" />
-     <Compile Include="Assets\Scripts\Joysticks\FixedJoystick.cs" />
-     <Compile Include="Assets\Scripts\Joysticks\Joystick.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsGame.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsObject.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsPHP.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsScene.cs" />
+     <Compile Include="Assets\Scripts\Define\DefsUI.cs" />
+     <Compile Include="Assets\Scripts\Joystick\FixedJoystick.cs" />
+     <Compile Include="Assets\Scripts\Joystick\Joystick.cs" />
      <Compile Include="Assets\Scripts\MovingObject\MovingObject.cs" />
      <Compile Include="Assets\Scripts\MovingObject\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\MovingObject\PlayerManager.cs" />
      <Compile Include="Assets\Scripts\Pattern\Singleton.cs" />
      <Compile Include="Assets\Scripts\Scene\Scene.cs" />
      <Compile Include="Assets\Scripts\Scene\SceneManager.cs" />
      <Compile Include="Assets\Scripts\Scene\TitleScene.cs" />
+     <Compile Include="Assets\Scripts\Scene\TownScene.cs" />
      <Compile Include="Assets\Scripts\Server\LoginManager.cs" />
      <Compile Include="Assets\Scripts\Server\ServerManager.cs" />
      <Compile Include="Assets\Scripts\UI\CameraManager.cs" />
      <Compile Include="Assets\Scripts\UI\PopupManager.cs" />
-     <Compile Include="Assets\Scripts\UserData\PlayerStatManager.cs" />
+     <Compile Include="Assets\Scripts\UserData\InventoryData.cs" />
+     <Compile Include="Assets\Scripts\UserData\PlayerDataManager.cs" />
+     <Compile Include="Assets\Scripts\UserData\StatData.cs" />
      <Compile Include="Assets\Scripts\Utility\Utility.cs" />
      <Compile Include="Assets\SerializableDictionary\Example\SerializableDictionaryExample.cs" />
      <Compile Include="Assets\SerializableDictionary\Example\UserSerializableDictionaries.cs" />

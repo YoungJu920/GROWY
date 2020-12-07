@@ -9,9 +9,9 @@ public class Scene : MonoBehaviour
 
     void Start()
     {
-        PlayBGM();
+        StartScene();
         SetCurrScene();
-        Init();
+        PlayBGM();
     }
 
     void PlayBGM()
@@ -23,9 +23,14 @@ public class Scene : MonoBehaviour
     void SetCurrScene()
     {
         SceneManager.Instance.CurrScene = this;
+        Debug.Log("SetCurrScene : " + this.name);
     }
 
-    protected virtual void Init()
+    protected virtual void StartScene()
+    {
+    }
+
+    protected virtual void EndScene()
     {
     }
 }

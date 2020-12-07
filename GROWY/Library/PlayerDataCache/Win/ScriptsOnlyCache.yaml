@@ -2,11 +2,22 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - AudioManager
+    - CameraManager
+    - FixedJoystick
     - LoginManager
+    - PlayerController
     - PopupManager
     - SceneManager
     - ServerManager
     - TitleScene
+    SuperTiled2Unity.dll:
+    - SuperTiled2Unity.SuperColliderComponent
+    - SuperTiled2Unity.SuperCustomProperties
+    - SuperTiled2Unity.SuperMap
+    - SuperTiled2Unity.SuperObject
+    - SuperTiled2Unity.SuperObjectLayer
+    - SuperTiled2Unity.SuperTile
+    - SuperTiled2Unity.SuperTileLayer
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
     UnityEditor.Graphs.dll:
@@ -55,35 +66,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11162}
     - Class: 114
-      Script: {instanceID: 11354}
+      Script: {instanceID: 11356}
     - Class: 114
-      Script: {instanceID: 11396}
+      Script: {instanceID: 11400}
     - Class: 114
-      Script: {instanceID: 11442}
+      Script: {instanceID: 11446}
     - Class: 114
-      Script: {instanceID: 11784}
+      Script: {instanceID: 11790}
     - Class: 114
-      Script: {instanceID: 11822}
+      Script: {instanceID: 11828}
     - Class: 114
-      Script: {instanceID: 11866}
+      Script: {instanceID: 11872}
     - Class: 114
-      Script: {instanceID: 12080}
+      Script: {instanceID: 12086}
     - Class: 114
-      Script: {instanceID: 12200}
+      Script: {instanceID: 12206}
     - Class: 114
-      Script: {instanceID: 12338}
+      Script: {instanceID: 12344}
     - Class: 114
-      Script: {instanceID: 12558}
+      Script: {instanceID: 12564}
     - Class: 114
-      Script: {instanceID: 12840}
+      Script: {instanceID: 12684}
     - Class: 114
-      Script: {instanceID: 12898}
+      Script: {instanceID: 12852}
     - Class: 114
-      Script: {instanceID: 13048}
+      Script: {instanceID: 12910}
     - Class: 114
-      Script: {instanceID: 13240}
+      Script: {instanceID: 13064}
     - Class: 114
-      Script: {instanceID: 13316}
+      Script: {instanceID: 13256}
+    - Class: 114
+      Script: {instanceID: 13332}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -115,15 +128,73 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 48
       Script: {instanceID: 0}
+    - Class: 50
+      Script: {instanceID: 0}
+    - Class: 61
+      Script: {instanceID: 0}
+    - Class: 74
+      Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
       Script: {instanceID: 0}
     - Class: 104
       Script: {instanceID: 0}
     - Class: 108
       Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11162}
+    - Class: 114
+      Script: {instanceID: 11228}
+    - Class: 114
+      Script: {instanceID: 11400}
+    - Class: 114
+      Script: {instanceID: 11522}
+    - Class: 114
+      Script: {instanceID: 11538}
+    - Class: 114
+      Script: {instanceID: 11872}
+    - Class: 114
+      Script: {instanceID: 11904}
+    - Class: 114
+      Script: {instanceID: 12096}
+    - Class: 114
+      Script: {instanceID: 12284}
+    - Class: 114
+      Script: {instanceID: 12684}
+    - Class: 114
+      Script: {instanceID: 12910}
+    - Class: 114
+      Script: {instanceID: 12916}
+    - Class: 114
+      Script: {instanceID: 13246}
+    - Class: 114
+      Script: {instanceID: 13258}
+    - Class: 114
+      Script: {instanceID: 13332}
+    - Class: 115
+      Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 212
+      Script: {instanceID: 0}
+    - Class: 213
+      Script: {instanceID: 0}
+    - Class: 222
+      Script: {instanceID: 0}
+    - Class: 223
+      Script: {instanceID: 0}
+    - Class: 224
+      Script: {instanceID: 0}
+    - Class: 156049354
+      Script: {instanceID: 0}
+    - Class: 483693784
+      Script: {instanceID: 0}
+    - Class: 1839735485
       Script: {instanceID: 0}
   scriptHashData:
   - hash:
@@ -156,6 +227,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_Dropdown
+  - hash:
+      serializedVersion: 2
+      Hash: abe316c23392096305ae4bfcf9d1273b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerController
   - hash:
       serializedVersion: 2
       Hash: e7a73f5f78ba6445195ec23b74a1ce2d
@@ -204,6 +281,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: TouchInputModule
+  - hash:
+      serializedVersion: 2
+      Hash: abe316c23392096305ae4bfcf9d1273b
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MovingObject
   - hash:
       serializedVersion: 2
       Hash: 89f9a1b4c64db9559e39f4a2e3bfaadd
@@ -506,6 +589,18 @@ ScriptsOnlyBuild:
     className: Physics2DRaycaster
   - hash:
       serializedVersion: 2
+      Hash: ce669872a2be11bc686ea22961d8a3bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: FixedJoystick
+  - hash:
+      serializedVersion: 2
+      Hash: ce669872a2be11bc686ea22961d8a3bb
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Joystick
+  - hash:
+      serializedVersion: 2
       Hash: c1933cc0a2f4ff6eb13333347497beb3
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -536,10 +631,22 @@ ScriptsOnlyBuild:
     className: GraphicRaycaster
   - hash:
       serializedVersion: 2
+      Hash: 23705e6580f77091123858fdb328b5e0
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CameraManager
+  - hash:
+      serializedVersion: 2
       Hash: 88cc9df3c6fc697bfbeacd24c0d6f2d7
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestTools
     className: BeforeAfterTestCommandState
+  - hash:
+      serializedVersion: 2
+      Hash: 21b056345aba6bae86f7d6fdae40d237
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: PlayerStatManager
   - hash:
       serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb

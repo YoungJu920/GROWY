@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using SimpleJSON;
-using UnityEngine.Networking;
 using System;
 
 public enum LoginReturnCode
@@ -121,15 +119,12 @@ public class LoginManager : Singleton<LoginManager>
 
     void ResultOfLogin(string result)
     {
-        var N = JSON.Parse(result);
-
-        if (N["return_code"] == null)
-        {
-            Debug.Log("return code was not inserted.");
+        var list = Utility.ParsingString(result);
+        
+        if (list == null)
             return;
-        }
 
-        LoginReturnCode return_code = (LoginReturnCode)(N["return_code"].AsInt);
+        LoginReturnCode return_code = (LoginReturnCode)(list["return_code"].AsInt);
 
         switch(return_code)
         {
@@ -147,11 +142,11 @@ public class LoginManager : Singleton<LoginManager>
 
             case LoginReturnCode.SUCCESS:
             {
-                if (N["user_index"] != null)
-                    PlayerStatManager.Instance.UserIndex = N["user_index"];
-
-                SceneManager.Instance.ChangeScene("TownScene");
-                
+                if (list["user_index"] != null)
+                {
+                    PlayerPrefs.SetInt("user_index", list["user_index"]);
+                    SceneManager.Instance.ChangeScene("TownScene");
+                }
                 break;
             }
             
@@ -160,15 +155,12 @@ public class LoginManager : Singleton<LoginManager>
 
     void ResultOfSignUp(string result)
     {
-        var N = JSON.Parse(result);
-
-        if (N["return_code"] == null)
-        {
-            Debug.Log("return code was not inserted.");
+        var list = Utility.ParsingString(result);
+        
+        if (list == null)
             return;
-        }
 
-        SignUpReturnCode return_code = (SignUpReturnCode)(N["return_code"].AsInt);
+        SignUpReturnCode return_code = (SignUpReturnCode)(list["return_code"].AsInt);
 
         switch(return_code)
         {

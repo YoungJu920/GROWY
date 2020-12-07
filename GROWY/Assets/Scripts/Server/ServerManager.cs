@@ -45,14 +45,18 @@ public class ServerManager : Singleton<ServerManager>
             , new POST(DefsPHP.SignUp_PHP
             , new POST_ITEM[]{ new POST_ITEM("Input_id"), new POST_ITEM("Input_pass"),
             new POST_ITEM("Input_nickname", GetEncoding("euc-kr")), new POST_ITEM("Input_class_type") }) );
+
+        post_forms.Add( "LOAD_PLAYER_STAT"
+            , new POST(DefsPHP.LoadPlayerStat_PHP
+            , new POST_ITEM[]{ new POST_ITEM("Input_user_index") }) );
     }
 
-    public void Request(string post_key, string[] values, Action<string> callback)
+    public void Request(string post_key, string[] values, Action<string> callback, bool log = false)
     {
-        StartCoroutine(RequestCoroutine(post_key, values, callback));
+        StartCoroutine(RequestCoroutine(post_key, values, callback, log));
     }
 
-    IEnumerator RequestCoroutine(string post_key, string[] values, Action<string> callback)
+    IEnumerator RequestCoroutine(string post_key, string[] values, Action<string> callback, bool log = false)
     {
         string php = post_forms[post_key].php;
         POST_ITEM[] post_items = post_forms[post_key].post_items;
@@ -86,7 +90,9 @@ public class ServerManager : Singleton<ServerManager>
             {
                 System.Text.Encoding enc = System.Text.Encoding.GetEncoding("euc-kr");
                 result = enc.GetString(request.downloadHandler.data);
-                Debug.Log(result);
+
+                if (log)
+                    Debug.Log(result);
             }
         }
 

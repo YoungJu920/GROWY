@@ -27,4 +27,17 @@ public class Utility
                 action?.Invoke(num);
             });
     }
+
+    public static JSONNode ParsingString(string result)
+    {
+        JSONNode N = JSON.Parse(result);
+
+        if (N["return_code"] == null)
+        {
+            Debug.Log("return code was not inserted.");
+            return null;
+        }
+
+        return N;
+    }
 }

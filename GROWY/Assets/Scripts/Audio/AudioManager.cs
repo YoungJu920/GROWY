@@ -49,7 +49,7 @@ public class AudioManager : Singleton<AudioManager>
     [SerializeField] StringSoundDictionary skillSoundDictionary;
     [SerializeField] StringSoundDictionary bgmSoundDictionary;
 
-    private AudioSource audioSource;
+    [SerializeField] AudioSource audioSource;
 
     private WaitForSeconds waitTime = new WaitForSeconds(0.01f);
 
